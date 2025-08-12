@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Cost__c</fullName>
+    <label>Total Cost</label>
+    <summarizedField>Recipe_Item__c.Cost__c</summarizedField>
+    <summaryForeignKey>Recipe_Item__c.Recipe__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

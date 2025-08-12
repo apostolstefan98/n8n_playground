@@ -15,6 +15,7 @@ public with sharing class N8nService {
 
     public class N8nRequestWrapper {
         public String caseId;
+        public String accountId;
         public String caseNumber;
         public String description;
         public List<EmailData> emails;
