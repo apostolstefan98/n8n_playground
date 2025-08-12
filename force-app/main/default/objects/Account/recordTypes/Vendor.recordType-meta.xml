@@ -4,4 +4,23 @@
     <active>true</active>
     <label>Vendor</label>
     <description>Record type for vendor accounts in the coffee shop inventory system</description>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Coffee_Supplier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pastry_Supplier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dairy_Supplier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Packaging_Supplier</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

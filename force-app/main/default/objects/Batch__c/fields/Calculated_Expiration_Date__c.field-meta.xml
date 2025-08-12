@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Gross_Margin__c</fullName>
-    <formula>IF(Total_Revenue__c > 0, (Total_Revenue__c - Total_Ingredient_Cost__c) / Total_Revenue__c, 0)</formula>
+    <fullName>Calculated_Expiration_Date__c</fullName>
+    <formula>Production_Date__c + Product__r.Shelf_Life_Days__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Gross Margin</label>
-    <precision>18</precision>
+    <label>Calculated Expiration Date</label>
     <required>false</required>
-    <scale>4</scale>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Percent</type>
+    <type>Date</type>
 </CustomField>

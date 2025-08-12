@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stock_Health__c</fullName>
+    <formula>IF(Current_Stock__c &lt;= 0, "Stockout",
+IF(Current_Stock__c &lt;= Reorder_Point__c * 0.5, "Critical",
+IF(Current_Stock__c &lt;= Reorder_Point__c, "Low",
+IF(Current_Stock__c &gt;= Reorder_Point__c * 3, "Overstock", "Healthy"))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Stock Health</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

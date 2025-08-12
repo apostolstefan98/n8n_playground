@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transaction_Number__c</fullName>
+    <displayFormat>TXN-{0000000}</displayFormat>
+    <label>Transaction Number</label>
+    <type>AutoNumber</type>
+</CustomField>

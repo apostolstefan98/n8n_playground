@@ -55,7 +55,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Batch</label>
     <nameField>
-        <displayFormat>BATCH-{00000}</displayFormat>
+        <displayFormat>BATCH-{000000}</displayFormat>
         <label>Batch Number</label>
         <type>AutoNumber</type>
     </nameField>

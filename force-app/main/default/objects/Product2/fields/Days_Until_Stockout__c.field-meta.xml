@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Days_Until_Stockout__c</fullName>
-    <formula>IF(Current_Stock__c &gt; 0, Current_Stock__c / 1, 0)</formula>
+    <formula>IF(
+    AND(
+        Current_Stock__c &gt; 0,
+        Rolling_Avg_Daily_Usage__c &gt; 0
+    ),
+    Current_Stock__c / Rolling_Avg_Daily_Usage__c,
+    IF(
+        Current_Stock__c &lt;= 0,
+        0,
+        999
+    )
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Days Until Stockout</label>
     <precision>18</precision>

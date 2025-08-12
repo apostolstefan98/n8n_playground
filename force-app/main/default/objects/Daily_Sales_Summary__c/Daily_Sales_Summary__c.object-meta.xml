@@ -55,9 +55,8 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Daily Sales Summary</label>
     <nameField>
-        <displayFormat>DSS-{000000}</displayFormat>
-        <label>Daily Sales Summary Number</label>
-        <type>AutoNumber</type>
+        <label>Daily Sales Summary Name</label>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Daily Sales Summaries</pluralLabel>
     <searchLayouts/>
