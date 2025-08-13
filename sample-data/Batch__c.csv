@@ -1,0 +1,10 @@
+Product__c,Production_Date__c,Initial_Quantity__c,Current_Quantity__c,Status__c,Roast_Level__c,Quality_Check_Passed__c,Notes__c
+"01tgK000004jSSTQA2","2024-08-01",50,35,"Active","Medium","TRUE","High quality batch from latest harvest"
+"01tgK000004jSSUQA2","2024-08-02",40,28,"Active","Dark","TRUE","Excellent aroma and flavor profile"
+"01tgK000004jSSVQA2","2024-08-05",30,12,"Active","Dark","TRUE","Popular blend, selling fast"
+"01tgK000004jSSYQA2","2024-08-13",25,8,"Active","","TRUE","Fresh morning batch"
+"01tgK000004jSSZQA2","2024-08-12",20,15,"Active","","TRUE","Chocolate chips from premium supplier"
+"01tgK000004jSSTQA2","2024-07-15",50,0,"Consumed","Medium","TRUE","Fully sold out - great customer feedback"
+"01tgK000004jSSUQA2","2024-07-20",40,5,"Active","Light","TRUE","Light roast trial batch"
+"01tgK000004jSSaQAM","2024-08-11",50,25,"Active","","TRUE","Fresh delivery from local dairy"
+"01tgK000004jSSbQAM","2024-08-10",30,18,"Active","","TRUE","Premium heavy cream for specialty drinks"

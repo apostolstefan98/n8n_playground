@@ -1,0 +1,13 @@
+Recipe__c,Ingredient__c,Quantity__c,Unit_of_Measure__c,Optional__c,Notes__c
+"a03gK000007lWzhQAE","01tgK000004jSSTQA2",18,"Gram",FALSE,"Use fine grind for optimal extraction"
+"a03gK000007lWziQAE","01tgK000004jSSTQA2",18,"Gram",FALSE,"Espresso base"
+"a03gK000007lWziQAE","01tgK000004jSSaQAM",150,"ML",FALSE,"Steam to 65°C for best texture"
+"a03gK000007lWzjQAE","01tgK000004jSScQAM",50,"Gram",FALSE,"For dough sweetness"
+"a03gK000007lWzjQAE","01tgK000004jSSaQAM",100,"ML",FALSE,"For dough moisture"
+"a03gK000007lWzkQAE","01tgK000004jSScQAM",120,"Gram",FALSE,"Main sweetener"
+"a03gK000007lWzkQAE","01tgK000004jSSaQAM",180,"ML",FALSE,"Wet ingredient"
+"a03gK000007lWzhQAE","01tgK000004jSScQAM",5,"Gram",TRUE,"Customer preference"
+"a03gK000007lWziQAE","01tgK000004jSScQAM",8,"Gram",TRUE,"Optional sweetener"
+"a03gK000007lWzjQAE","01tgK000004jSSbQAM",25,"ML",FALSE,"For richness"
+"a03gK000007lWzkQAE","01tgK000004jSSbQAM",50,"ML",FALSE,"For moist texture"
+"a03gK000007lWziQAE","01tgK000004jSSbQAM",20,"ML",TRUE,"Extra richness option"

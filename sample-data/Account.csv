@@ -1,0 +1,8 @@
+Name,Type__c,Lead_Time_Days__c,Minimum_Order_Value__c,Payment_Terms__c,Preferred_Vendor__c,Region__c,Active__c,Delivery_Schedule__c
+"Blue Mountain Coffee Co","Coffee_Supplier",7,500.00,"Net_30",TRUE,"North America",TRUE,"Monday;Wednesday;Friday"
+"Arabica Direct","Coffee_Supplier",5,300.00,"Net_15",TRUE,"South America",TRUE,"Tuesday;Thursday"
+"Daily Pastries Inc","Pastry_Supplier",2,200.00,"Net_15",FALSE,"Local",TRUE,"Monday;Tuesday;Wednesday;Thursday;Friday"
+"Fresh Dairy Solutions","Dairy_Supplier",1,150.00,"Net_15",TRUE,"Local",TRUE,"Monday;Tuesday;Wednesday;Thursday;Friday;Saturday"
+"GreenPack Supplies","Packaging_Supplier",10,1000.00,"Net_45",FALSE,"North America",TRUE,"Monday;Wednesday"
+"Morning Roasters","Coffee_Supplier",3,400.00,"Net_30",FALSE,"Local",TRUE,"Tuesday;Friday"
+"Sweet Treats Bakery","Pastry_Supplier",1,100.00,"COD",FALSE,"Local",TRUE,"Monday;Tuesday;Wednesday;Thursday;Friday;Saturday"

@@ -1,0 +1,5 @@
+Name,Product__c,Active__c,Yield_Quantity__c,Preparation_Time_Minutes__c,Instructions__c,Category__c
+"Classic Espresso","01tgK000004jSSWQA2",TRUE,1,3,"1. Grind 18g of coffee beans to fine consistency 2. Tamp grounds in portafilter 3. Extract for 25-30 seconds 4. Serve immediately","Hot_Beverage"
+"Cappuccino","01tgK000004jSSXQA2",TRUE,1,5,"1. Prepare espresso shot 2. Steam 150ml milk to 65°C 3. Pour steamed milk over espresso 4. Top with milk foam 5. Optional: dust with cocoa","Hot_Beverage"
+"Butter Croissant","01tgK000004jSSYQA2",TRUE,12,180,"1. Mix flour, butter, salt, sugar 2. Create laminated dough 3. Roll and fold 3 times 4. Shape croissants 5. Proof for 2 hours 6. Bake at 200°C for 15-18 minutes","Food"
+"Chocolate Muffin","01tgK000004jSSZQA2",TRUE,12,45,"1. Mix dry ingredients 2. Combine wet ingredients separately 3. Fold wet into dry with chocolate chips 4. Fill muffin cups 3/4 full 5. Bake at 180°C for 20-25 minutes","Food"

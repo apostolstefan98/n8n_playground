@@ -1,0 +1,21 @@
+Transaction_Type__c,Product__c,Quantity__c,Unit_Cost__c,Transaction_Date__c,Notes__c,Stock_Before__c,Stock_After__c
+"Receipt","01tgK000004jSSTQA2",100,12.50,"2024-08-01T09:00:00Z","Initial inventory from Blue Mountain Coffee Co",0,100
+"Receipt","01tgK000004jSSUQA2",80,11.00,"2024-08-01T09:30:00Z","Initial inventory from Arabica Direct",0,80
+"Receipt","01tgK000004jSSaQAM",50,1.50,"2024-08-01T10:00:00Z","Fresh dairy delivery",0,50
+"Receipt","01tgK000004jSSdQAM",20,15.00,"2024-08-01T10:30:00Z","New cup inventory",0,20
+"Sale","01tgK000004jSSWQA2",45,2.50,"2024-08-01T14:00:00Z","Daily espresso sales",100,55
+"Sale","01tgK000004jSSXQA2",32,3.00,"2024-08-01T14:00:00Z","Daily cappuccino sales",80,48
+"Sale","01tgK000004jSSYQA2",18,1.25,"2024-08-01T14:00:00Z","Morning pastry sales",30,12
+"Production","01tgK000004jSSWQA2",50,2.50,"2024-08-02T08:00:00Z","Morning production batch",55,105
+"Production","01tgK000004jSSXQA2",40,3.00,"2024-08-02T08:30:00Z","Morning production batch",48,88
+"Sale","01tgK000004jSSWQA2",38,2.50,"2024-08-02T18:00:00Z","Daily espresso sales",105,67
+"Sale","01tgK000004jSSXQA2",41,3.00,"2024-08-02T18:00:00Z","Daily cappuccino sales",88,47
+"Waste","01tgK000004jSSaQAM",3,1.50,"2024-08-03T07:00:00Z","Expired milk disposal",47,44
+"Receipt","01tgK000004jSSbQAM",30,2.25,"2024-08-03T09:00:00Z","Heavy cream delivery",0,30
+"Sale","01tgK000004jSSWQA2",52,2.50,"2024-08-03T19:00:00Z","Rainy day high sales",67,15
+"Sale","01tgK000004jSSXQA2",48,3.00,"2024-08-03T19:00:00Z","Rainy day high sales",47,-1
+"Adjustment","01tgK000004jSSXQA2",1,3.00,"2024-08-03T19:30:00Z","Inventory correction",-1,0
+"Receipt","01tgK000004jSSVQA2",50,8.75,"2024-08-05T10:00:00Z","French Roast delivery",0,50
+"Transfer","01tgK000004jSSTQA2",20,12.50,"2024-08-05T11:00:00Z","Transfer to brewing station",85,65
+"Sale","01tgK000004jSSVQA2",18,8.75,"2024-08-05T17:00:00Z","French Roast retail sales",50,32
+"Production","01tgK000004jSSZQA2",25,1.75,"2024-08-06T07:00:00Z","Fresh muffin batch",0,25

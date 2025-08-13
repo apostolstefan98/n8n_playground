@@ -1,0 +1,8 @@
+Vendor__c,Status__c,Order_Date__c,Actual_Delivery_Date__c,Approval_Status__c,Invoice_Number__c,Payment_Status__c,Delivery_Notes__c
+"001gK00000GH4E5QAL","Received","2024-07-25","2024-08-01","Approved","BMC-2024-0751","Paid","Delivered on time, excellent quality"
+"001gK00000GH4E6QAL","Received","2024-07-27","2024-08-01","Approved","AD-2024-1205","Paid","Early delivery, beans look great"
+"001gK00000GH4E8QAL","Partially_Received","2024-08-05","2024-08-06","Not_Required","FDS-2024-0890","Pending","Milk delivered, cream backorder"
+"001gK00000GH4E9QAL","Approved","2024-08-08","","Approved","","Pending","Awaiting delivery"
+"001gK00000GH4E7QAL","Draft","2024-08-10","","Pending","","Pending","Weekly pastry order"
+"001gK00000GH4EAQA1","Submitted","2024-08-11","","Pending","","Pending","Trial order for new blend"
+"001gK00000GH4EBQA1","Cancelled","2024-08-01","","Rejected","","Pending","Order cancelled due to quality concerns"
