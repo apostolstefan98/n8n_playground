@@ -33,8 +33,7 @@ public class N8nStockAlertQueueable implements Queueable, Database.AllowsCallout
         Map<String, List<Stock_Alert__c>> alertsByVendor = new Map<String, List<Stock_Alert__c>>();
         
         for (Stock_Alert__c alert : alerts) {
-            String vendorId = alert.Product__r.Primary_Vendor__c != null ? 
-                            alert.Product__r.Primary_Vendor__c : 'NO_VENDOR';
+            String vendorId = alert.Product__r.Primary_Vendor__c;
             if (!alertsByVendor.containsKey(vendorId)) {
                 alertsByVendor.put(vendorId, new List<Stock_Alert__c>());
             }
@@ -49,7 +48,7 @@ public class N8nStockAlertQueueable implements Queueable, Database.AllowsCallout
             List<Stock_Alert__c> vendorAlerts = alertsByVendor.get(vendorId);
             
             Map<String, Object> vendorInfo = new Map<String, Object>();
-            if (vendorId != 'NO_VENDOR' && vendorAlerts[0].Product__r.Primary_Vendor__r != null) {
+            if (vendorId != null && vendorAlerts[0].Product__r.Primary_Vendor__r != null) {
                 vendorInfo.put('id', vendorId);
                 vendorInfo.put('name', vendorAlerts[0].Product__r.Primary_Vendor__r.Name);
             } else {

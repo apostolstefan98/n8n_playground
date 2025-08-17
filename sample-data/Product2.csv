@@ -1,14 +1,14 @@
-Name,ProductCode,Family,IsActive,Product_Type__c,Size__c,Unit_of_Measure__c,Shelf_Life_Days__c,Storage_Type__c,Reorder_Point__c,Reorder_Quantity__c,Safety_Stock_Days__c,Cost__c,Retail_Price__c
-"Ethiopian Yirgacheffe","ETH-001","Packaged_Coffee",TRUE,"Raw_Material","1kg","KG",365,"Dry_Storage",50,100,7,12.50,24.99
-"Colombian Supremo","COL-001","Packaged_Coffee",TRUE,"Raw_Material","1kg","KG",365,"Dry_Storage",40,80,7,11.00,22.99
-"French Roast Blend","FR-001","Packaged_Coffee",TRUE,"Finished_Good","500g","Gram",180,"Dry_Storage",25,50,5,8.75,18.99
-"Espresso","ESP-001","Beverage",TRUE,"Finished_Good","350ml","ML",1,"Refrigerated",20,100,2,2.50,4.50
-"Cappuccino","CAP-001","Beverage",TRUE,"Finished_Good","350ml","ML",1,"Refrigerated",15,80,2,3.00,5.25
-"Croissant","CRO-001","Pastry",TRUE,"Finished_Good","Each","Each",3,"Dry_Storage",10,30,1,1.25,3.50
-"Chocolate Muffin","MUF-001","Pastry",TRUE,"Finished_Good","Each","Each",5,"Dry_Storage",8,25,1,1.75,4.25
-"Whole Milk","MILK-001","Raw_Material",TRUE,"Raw_Material","1L","Liter",7,"Refrigerated",30,50,2,1.50,0.00
-"Heavy Cream","CREAM-001","Raw_Material",TRUE,"Raw_Material","500ml","ML",10,"Refrigerated",15,30,2,2.25,0.00
-"Sugar","SUGAR-001","Raw_Material",TRUE,"Raw_Material","1kg","KG",730,"Dry_Storage",20,50,14,0.75,0.00
-"Coffee Cups 12oz","CUP-12","Packaging",TRUE,"Packaging","100pk","Box",9999,"Dry_Storage",5,20,7,15.00,0.00
-"Coffee Lids","LID-12","Packaging",TRUE,"Packaging","100pk","Box",9999,"Dry_Storage",5,20,7,8.50,0.00
-"Paper Bags","BAG-001","Packaging",TRUE,"Packaging","250pk","Box",365,"Dry_Storage",3,10,7,12.00,0.00
+Name,ProductCode,Family,IsActive,Product_Type__c,Size__c,Unit_of_Measure__c,Shelf_Life_Days__c,Storage_Type__c,Reorder_Point__c,Reorder_Quantity__c,Safety_Stock_Days__c,Cost__c,Retail_Price__c,Primary_Vendor__c
+"Ethiopian Yirgacheffe","ETH-001","Packaged_Coffee",TRUE,"Raw_Material","1kg","KG",365,"Dry_Storage",50,100,7,12.50,24.99,001gK00000GH4E6QAL
+"Colombian Supremo","COL-001","Packaged_Coffee",TRUE,"Raw_Material","1kg","KG",365,"Dry_Storage",40,80,7,11.00,22.99,001gK00000GH4E6QAL
+"French Roast Blend","FR-001","Packaged_Coffee",TRUE,"Finished_Good","500g","Gram",180,"Dry_Storage",25,50,5,8.75,18.99,001gK00000GH4E6QAL
+"Espresso","ESP-001","Beverage",TRUE,"Finished_Good","350ml","ML",1,"Refrigerated",20,100,2,2.50,4.50,001gK00000GH4E6QAL
+"Cappuccino","CAP-001","Beverage",TRUE,"Finished_Good","350ml","ML",1,"Refrigerated",15,80,2,3.00,5.25,001gK00000GH4E6QAL
+"Croissant","CRO-001","Pastry",TRUE,"Finished_Good","Each","Each",3,"Dry_Storage",10,30,1,1.25,3.50,001gK00000GH4E6QAL
+"Chocolate Muffin","MUF-001","Pastry",TRUE,"Finished_Good","Each","Each",5,"Dry_Storage",8,25,1,1.75,4.25,001gK00000GH4E6QAL
+"Whole Milk","MILK-001","Raw_Material",TRUE,"Raw_Material","1L","Liter",7,"Refrigerated",30,50,2,1.50,0.00,001gK00000GH4E6QAL
+"Heavy Cream","CREAM-001","Raw_Material",TRUE,"Raw_Material","500ml","ML",10,"Refrigerated",15,30,2,2.25,0.00,001gK00000GH4E6QAL
+"Sugar","SUGAR-001","Raw_Material",TRUE,"Raw_Material","1kg","KG",730,"Dry_Storage",20,50,14,0.75,0.00,001gK00000GH4E6QAL
+"Coffee Cups 12oz","CUP-12","Packaging",TRUE,"Packaging","100pk","Box",9999,"Dry_Storage",5,20,7,15.00,0.00,001gK00000GH4E6QAL
+"Coffee Lids","LID-12","Packaging",TRUE,"Packaging","100pk","Box",9999,"Dry_Storage",5,20,7,8.50,0.00,001gK00000GH4E6QAL
+"Paper Bags","BAG-001","Packaging",TRUE,"Packaging","250pk","Box",365,"Dry_Storage",3,10,7,12.00,0.00,001gK00000GH4E6QAL
