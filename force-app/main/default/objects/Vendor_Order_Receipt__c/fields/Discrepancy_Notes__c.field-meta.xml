@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Cost__c</fullName>
+    <fullName>Discrepancy_Notes__c</fullName>
     <externalId>false</externalId>
-    <label>Cost</label>
-    <precision>18</precision>
+    <label>Discrepancy Notes</label>
+    <length>255</length>
     <required>false</required>
-    <scale>2</scale>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
-    <type>Currency</type>
+    <trackHistory>true</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
