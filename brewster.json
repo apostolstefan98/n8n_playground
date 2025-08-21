@@ -1,0 +1,661 @@
+{
+  "name": "Brewster - Coffee Shop AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Extract and clean the message\nconst input = $input.first().json;\n\n// Remove bot mention if present\nlet cleanText = input.text || '';\ncleanText = cleanText.replace(/<@[A-Z0-9]+>/g, '').trim();\n\n// Get user info\nconst userId = input.user || input.user_id || '';\nconst userName = input.user_name || '';\nconst channel = input.channel || input.channel_id || '';\nconst ts = input.ts || input.event_ts || '';\nconst thread_ts = input.thread_ts || ts;\n\nreturn [{\n  json: {\n    text: cleanText,\n    user: userId,\n    userName: userName,\n    channel: channel,\n    ts: ts,\n    thread_ts: thread_ts,\n    original: input\n  }\n}];"
+      },
+      "id": "588819e6-448d-4c56-a71b-2b5afc74169b",
+      "name": "Parse Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2304,
+        -288
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.output.action }}",
+              "value2": "inventory_check"
+            }
+          ]
+        }
+      },
+      "id": "7bfca6cb-899c-49fd-bffb-6933cd199a5b",
+      "name": "If Inventory Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.output.action }}",
+              "value2": "sales_report"
+            }
+          ]
+        }
+      },
+      "id": "3836ce18-22fe-411e-aecf-80288d32950f",
+      "name": "If Sales Report",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1248,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.output.action }}",
+              "value2": "stock_alert"
+            }
+          ]
+        }
+      },
+      "id": "c8d3ed19-600b-4424-a9b7-6e5efb40d140",
+      "name": "If Stock Alerts",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "__CUSTOM_API_CALL__"
+      },
+      "id": "719e79d2-6333-4377-ad7c-2a72eb8bbe6a",
+      "name": "Query Inventory",
+      "type": "n8n-nodes-base.salesforce",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        -384
+      ],
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "BxFGjk6f8hUdbYoP",
+          "name": "Salesforce account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "query"
+      },
+      "id": "c826ec4b-b05e-4a7f-94d6-8acb8940bfc0",
+      "name": "Query Sales",
+      "type": "n8n-nodes-base.salesforce",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        -192
+      ],
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "BxFGjk6f8hUdbYoP",
+          "name": "Salesforce account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "query"
+      },
+      "id": "9d6bd2b6-b373-4474-9c4e-485794074599",
+      "name": "Query Alerts",
+      "type": "n8n-nodes-base.salesforce",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        16
+      ],
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "BxFGjk6f8hUdbYoP",
+          "name": "Salesforce account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "query"
+      },
+      "id": "2c20d402-fda2-4fa4-810d-4263f7507fdb",
+      "name": "Query General",
+      "type": "n8n-nodes-base.salesforce",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        224
+      ],
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "BxFGjk6f8hUdbYoP",
+          "name": "Salesforce account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "Id",
+              "field2": "Id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a4539679-94d9-4f69-8fd5-d18c21d72bcc",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        -512,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare comprehensive data for AI response\nconst originalMessage = $node['Parse Message'].json;\nconst aiIntent = JSON.parse($node['AI Intent Analysis'].json.message.content);\nconst salesforceData = $input.all();\n\n// Structure the data\nconst responseData = {\n  user: originalMessage.userName,\n  message: originalMessage.text,\n  intent: aiIntent.intent,\n  entities: aiIntent.entities,\n  urgency: aiIntent.urgency,\n  channel: originalMessage.channel,\n  thread_ts: originalMessage.thread_ts,\n  queryResults: salesforceData.map(item => item.json),\n  timestamp: new Date().toISOString()\n};\n\n// Add context based on intent\nif (aiIntent.intent === 'inventory_check') {\n  const lowStock = salesforceData.filter(item => \n    item.json.Current_Stock__c < item.json.Reorder_Point__c\n  );\n  responseData.summary = {\n    totalItems: salesforceData.length,\n    lowStockCount: lowStock.length,\n    criticalItems: lowStock.slice(0, 5)\n  };\n} else if (aiIntent.intent === 'sales_report') {\n  const totalRevenue = salesforceData.reduce((sum, item) => \n    sum + (item.json.Total_Revenue__c || 0), 0\n  );\n  const totalQuantity = salesforceData.reduce((sum, item) => \n    sum + (item.json.Quantity_Sold__c || 0), 0\n  );\n  responseData.summary = {\n    totalRevenue: totalRevenue,\n    totalQuantitySold: totalQuantity,\n    daysAnalyzed: 7\n  };\n} else if (aiIntent.intent === 'stock_alert') {\n  const criticalAlerts = salesforceData.filter(item => \n    item.json.Priority__c === 'Critical'\n  );\n  responseData.summary = {\n    totalAlerts: salesforceData.length,\n    criticalCount: criticalAlerts.length,\n    criticalAlerts: criticalAlerts\n  };\n}\n\nreturn [{ json: responseData }];"
+      },
+      "id": "f60d8f58-8435-48b7-8f92-b51dcb3107a1",
+      "name": "Prepare Response Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage"
+      },
+      "id": "fc5006ee-37ec-446c-bb77-2d7f4668e974",
+      "name": "Generate AI Response",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        -144
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "lNrtn8ycrx6MJk0J",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08MKTBF9DZ",
+          "mode": "list",
+          "cachedResultName": "all-ai-experiments"
+        },
+        "text": "TODO",
+        "otherOptions": {}
+      },
+      "id": "4061d111-7641-497e-b8c0-8176533eb8d2",
+      "name": "Reply to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [
+        112,
+        -144
+      ],
+      "webhookId": "32f68036-c999-4cab-a0a4-fda0d8020d9e",
+      "credentials": {
+        "slackApi": {
+          "id": "kGHFQm86JR0HROVM",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "trigger": [
+          "message"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C08MKTBF9DZ",
+          "mode": "list",
+          "cachedResultName": "all-ai-experiments"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2560,
+        -288
+      ],
+      "id": "e634cb02-6b94-42a5-8918-cc2c6974d311",
+      "name": "Slack Trigger",
+      "webhookId": "5174f9c1-d9a4-467d-a347-9bfb5639790c",
+      "credentials": {
+        "slackApi": {
+          "id": "kGHFQm86JR0HROVM",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -1760,
+        -288
+      ],
+      "id": "476fbbd2-3820-4d5f-ad95-d42edc73a97d",
+      "name": "AI Agent",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -2416,
+        112
+      ],
+      "id": "c56dbd89-29e8-4a7c-8167-c305580ea3bb",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JeAUdMnSrNRzQCBX",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Parse Message').item.json.userName }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -2240,
+        112
+      ],
+      "id": "5aa6a9e9-fe6a-4f79-9768-21d12b64f1f2",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -816,
+        -592
+      ],
+      "id": "2746d226-b55e-475f-94c1-1cc916e46987",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"message\": \"Ok , i will have to check inventory\",\n\t\"action\": \"inventory_check\",\n  \"productId\": \"01tgK000004jSSeQAM\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -1552,
+        112
+      ],
+      "id": "6de06458-8fba-4014-b379-f597ee5dfc3e",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Select the productId using ProductCode from Product2",
+        "resource": "search",
+        "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.salesforceTool",
+      "typeVersion": 1,
+      "position": [
+        -1872,
+        112
+      ],
+      "id": "41aa5bb0-c70e-4ae2-9772-6268523b9a5c",
+      "name": "Perform a query in Salesforce",
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "BxFGjk6f8hUdbYoP",
+          "name": "Salesforce account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\n// Extracted message details\nconst userMessage = data.text;\nconst userId = data.user;\nconst userName = data.userName;\nconst channel = data.channel;\nconst ts = data.ts;\nconst thread_ts = data.thread_ts;\n\nconst prompt = \n`You are an inventory support bot.\n\nYou just received the following message from ${userName} (${userId}) in channel ${channel}:\n\"${userMessage}\"\n\nYour task:\n1. Understand the user's intent. \n2. Decide the appropriate action (e.g., \"inventory_check\", \"sales_report\", \"stock_alert\").\n3. Use the sf tool to get productId build a where clause on how to query the record from salesforce you can user Product Name if words or Product Code if something similar to \"LID-12\"\n4. After you got the productId please continue and try get Stock_Alert__c for that ProductId\n5. Respond in **structured JSON only** with the following format:\n{\n  \"message\": \"<a short, clear response to the user or internal note>\",\n  \"action\": \"<one of the predefined actions>\",\n  \"productId\": \"<the queried productId>\"\n}\n`;\n\nreturn {\n  prompt,\n  userId,\n  userName,\n  channel,\n  ts,\n  thread_ts,\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2016,
+        -288
+      ],
+      "id": "58876845-d8d9-4b2e-8353-4c25d0e47b43",
+      "name": "Build GetProductId Prompt"
+    }
+  ],
+  "pinData": {
+    "Generate AI Response": [
+      {
+        "json": {
+          "name": "First item",
+          "code": 1
+        }
+      },
+      {
+        "json": {
+          "name": "Second item",
+          "code": 2
+        }
+      }
+    ],
+    "Slack Trigger": [
+      {
+        "json": {
+          "text": "<@U12345> Tell me info about COL-001 stock",
+          "user": "U12345",
+          "user_name": "test_user",
+          "channel": "C67890",
+          "ts": "1724150400.000100",
+          "event_ts": "1724150400.000100",
+          "thread_ts": "1724150400.000100"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Parse Message": {
+      "main": [
+        [
+          {
+            "node": "Build GetProductId Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Inventory Check": {
+      "main": [
+        [
+          {
+            "node": "Query Inventory",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Query General",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Sales Report": {
+      "main": [
+        [
+          {
+            "node": "Query Sales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Query General",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Stock Alerts": {
+      "main": [
+        [
+          {
+            "node": "Query Alerts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Query General",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Inventory": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Sales": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Alerts": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query General": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Results": {
+      "main": [
+        [
+          {
+            "node": "Prepare Response Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Response Data": {
+      "main": [
+        [
+          {
+            "node": "Generate AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate AI Response": {
+      "main": [
+        [
+          {
+            "node": "Reply to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If Inventory Check",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If Sales Report",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If Stock Alerts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perform a query in Salesforce": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build GetProductId Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "92d541c0-9f0d-454c-9af8-b795830ac6c7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "60dff682eefb47714277b178db29603e8b109ba79f6b1f0c584cad4918119d0d"
+  },
+  "id": "daMmehZj4BU98eF5",
+  "tags": [
+    {
+      "createdAt": "2025-08-20T17:54:50.339Z",
+      "updatedAt": "2025-08-20T17:54:50.339Z",
+      "id": "IZRZSmOpREZyz6j1",
+      "name": "brewster"
+    },
+    {
+      "createdAt": "2025-08-20T17:54:50.342Z",
+      "updatedAt": "2025-08-20T17:54:50.342Z",
+      "id": "oeFC8NUQPFHlAFtR",
+      "name": "slack-bot"
+    }
+  ]
+}
