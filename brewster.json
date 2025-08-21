@@ -30,8 +30,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        -1280,
-        -304
+        -2416,
+        656
       ]
     },
     {
@@ -50,8 +50,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        -1248,
-        -112
+        -2416,
+        832
       ]
     },
     {
@@ -70,8 +70,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        -1280,
-        96
+        -2416,
+        1024
       ]
     },
     {
@@ -83,8 +83,8 @@
       "type": "n8n-nodes-base.salesforce",
       "typeVersion": 1,
       "position": [
-        -800,
-        -384
+        -2016,
+        608
       ],
       "credentials": {
         "salesforceOAuth2Api": {
@@ -102,8 +102,8 @@
       "type": "n8n-nodes-base.salesforce",
       "typeVersion": 1,
       "position": [
-        -800,
-        -192
+        -2016,
+        752
       ],
       "credentials": {
         "salesforceOAuth2Api": {
@@ -121,8 +121,8 @@
       "type": "n8n-nodes-base.salesforce",
       "typeVersion": 1,
       "position": [
-        -800,
-        16
+        -2016,
+        912
       ],
       "credentials": {
         "salesforceOAuth2Api": {
@@ -140,8 +140,8 @@
       "type": "n8n-nodes-base.salesforce",
       "typeVersion": 1,
       "position": [
-        -800,
-        224
+        -2016,
+        1088
       ],
       "credentials": {
         "salesforceOAuth2Api": {
@@ -168,8 +168,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        -512,
-        -144
+        -1728,
+        784
       ]
     },
     {
@@ -181,8 +181,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -304,
-        -144
+        -1520,
+        784
       ]
     },
     {
@@ -194,8 +194,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1,
       "position": [
-        -112,
-        -144
+        -1328,
+        784
       ],
       "credentials": {
         "openAiApi": {
@@ -221,8 +221,8 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.1,
       "position": [
-        112,
-        -144
+        -1104,
+        784
       ],
       "webhookId": "32f68036-c999-4cab-a0a4-fda0d8020d9e",
       "credentials": {
@@ -314,19 +314,6 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -816,
-        -592
-      ],
-      "id": "2746d226-b55e-475f-94c1-1cc916e46987",
-      "name": "HTTP Request"
-    },
-    {
-      "parameters": {
         "jsonSchemaExample": "{\n\t\"message\": \"Ok , i will have to check inventory\",\n\t\"action\": \"inventory_check\",\n  \"productId\": \"01tgK000004jSSeQAM\"\n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
@@ -340,29 +327,7 @@
     },
     {
       "parameters": {
-        "descriptionType": "manual",
-        "toolDescription": "Select the productId using ProductCode from Product2",
-        "resource": "search",
-        "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}"
-      },
-      "type": "n8n-nodes-base.salesforceTool",
-      "typeVersion": 1,
-      "position": [
-        -1872,
-        112
-      ],
-      "id": "41aa5bb0-c70e-4ae2-9772-6268523b9a5c",
-      "name": "Perform a query in Salesforce",
-      "credentials": {
-        "salesforceOAuth2Api": {
-          "id": "BxFGjk6f8hUdbYoP",
-          "name": "Salesforce account 2"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "const data = $input.first().json;\n\n// Extracted message details\nconst userMessage = data.text;\nconst userId = data.user;\nconst userName = data.userName;\nconst channel = data.channel;\nconst ts = data.ts;\nconst thread_ts = data.thread_ts;\n\nconst prompt = \n`You are an inventory support bot.\n\nYou just received the following message from ${userName} (${userId}) in channel ${channel}:\n\"${userMessage}\"\n\nYour task:\n1. Understand the user's intent. \n2. Decide the appropriate action (e.g., \"inventory_check\", \"sales_report\", \"stock_alert\").\n3. Use the sf tool to get productId build a where clause on how to query the record from salesforce you can user Product Name if words or Product Code if something similar to \"LID-12\"\n4. After you got the productId please continue and try get Stock_Alert__c for that ProductId\n5. Respond in **structured JSON only** with the following format:\n{\n  \"message\": \"<a short, clear response to the user or internal note>\",\n  \"action\": \"<one of the predefined actions>\",\n  \"productId\": \"<the queried productId>\"\n}\n`;\n\nreturn {\n  prompt,\n  userId,\n  userName,\n  channel,\n  ts,\n  thread_ts,\n};\n"
+        "jsCode": "const data = $input.first().json;\n\n// Extracted message details\nconst userMessage = data.text;\nconst userId = data.user;\nconst userName = data.userName;\nconst channel = data.channel;\nconst ts = data.ts;\nconst thread_ts = data.thread_ts;\n\nconst prompt = \n`You are an inventory support bot.\n\nYou just received the following message from ${userName} (${userId}) in channel ${channel}:\n\"${userMessage}\"\n\nYour task:\n1. Understand the user's intent.\n2. Determine the appropriate action. Possible actions: \"inventory_check\", \"sales_report\", \"stock_alert\".\n3. Use the Salesforce tool to obtain the productId. \n   - If the user mentions a product name (e.g., \"Widget A\"), use it in a WHERE clause like: Name = '<Product Name>'.\n   - If the user mentions a product code (e.g., \"LID-12\"), use it in a WHERE clause like: ProductCode = '<Product Code>'.\n4. Once you have the productId, query related <Stock_Alert__c> records with the following fields:\n   Alert_Date__c, Alert_Type__c, Current_Stock_Level__c, Purchase_Order_Created__c, Resolved_Date__c, Status__c.\n   - Order by CreatedDate DESC\n   - Limit 5\n5. Convert the query results into a clear, human-readable summary.\n6. Respond in **structured JSON only** with the following format:\n{\n  \"message\": \"<short and clear response to the user or an internal note>\",\n  \"action\": \"<inventory_check | sales_report | stock_alert>\",\n  \"productId\": \"<queried productId or null if not found>\"\n}`;\n\nreturn {\n  prompt,\n  userId,\n  userName,\n  channel,\n  ts,\n  thread_ts,\n};\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -372,6 +337,78 @@
       ],
       "id": "58876845-d8d9-4b2e-8353-4c25d0e47b43",
       "name": "Build GetProductId Prompt"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Select the productId using ProductCode from Product2",
+        "resource": "search",
+        "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.salesforceTool",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        112
+      ],
+      "id": "41aa5bb0-c70e-4ae2-9772-6268523b9a5c",
+      "name": "Product2 Query",
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "BxFGjk6f8hUdbYoP",
+          "name": "Salesforce account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08MKTBF9DZ",
+          "mode": "list",
+          "cachedResultName": "all-ai-experiments"
+        },
+        "text": "={{ $json.output.message }}",
+        "otherOptions": {}
+      },
+      "id": "8b26351c-f9b6-4b64-9977-602fcf8c6eca",
+      "name": "Reply to slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [
+        -1296,
+        -288
+      ],
+      "webhookId": "32f68036-c999-4cab-a0a4-fda0d8020d9e",
+      "credentials": {
+        "slackApi": {
+          "id": "kGHFQm86JR0HROVM",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Stock_Alert__c query ",
+        "resource": "search",
+        "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.salesforceTool",
+      "typeVersion": 1,
+      "position": [
+        -1792,
+        112
+      ],
+      "id": "0b6c9057-8b42-404c-81e3-4c5b224932a0",
+      "name": "Stock_Alert__c query",
+      "credentials": {
+        "salesforceOAuth2Api": {
+          "id": "BxFGjk6f8hUdbYoP",
+          "name": "Salesforce account 2"
+        }
+      }
     }
   ],
   "pinData": {
@@ -561,17 +598,7 @@
       "main": [
         [
           {
-            "node": "If Inventory Check",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "If Sales Report",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "If Stock Alerts",
+            "node": "Reply to slack",
             "type": "main",
             "index": 0
           }
@@ -611,17 +638,6 @@
         ]
       ]
     },
-    "Perform a query in Salesforce": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Build GetProductId Prompt": {
       "main": [
         [
@@ -632,13 +648,35 @@
           }
         ]
       ]
+    },
+    "Product2 Query": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stock_Alert__c query": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "92d541c0-9f0d-454c-9af8-b795830ac6c7",
+  "versionId": "2a84c586-7323-44ab-8751-d90e73e5523f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "60dff682eefb47714277b178db29603e8b109ba79f6b1f0c584cad4918119d0d"
